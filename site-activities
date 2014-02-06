@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WIMN ReST API Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- move the bootstrap and leaflet code off dropbox -->
+    <!-- styles -->
+    <link href="http://dl.dropbox.com/u/1139822/bootstrap.css" rel="stylesheet">
+	  <!-- <link rel="stylesheet" href="leaflet-0.4.2/dist/leaflet.css" /> -->
+	  <link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/1139822/Leaflet/dist/leaflet.css" />
+
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Gorditas' rel='stylesheet' type='text/css'> -->
+
+    <style type="text/css">
+
+		.style3 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 16px;}
+		.style4 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;" }
+
+    </style>
+
+    <style type="text/css">
+		h1#big {
+			font-family: 'Gorditas', cursive;
+			color: #0066FF;
+			font-size: 60px;
+			line-height: 60px;
+			text-align: center;
+		}
+
+		h2#medium {
+			font-family: sans-serif;
+			font-size: 20px;
+			color: #444;
+			margin-left: 470px;
+			margin-bottom: 50px;
+		}
+
+		label.label {
+			font-size: 20px;
+			line-height: 30px;
+		}
+
+		#options {
+			text-align: center;
+		}
+</style>
+
+	
+  </head>
+
+  <body>
+     <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="http://cf.pca.state.mn.us/wimn/search.cfm">What's in My Neighborhood (MPCA)</a>
+        </div>
+      </div>
+    </div>
+	
+	<div class="container">
+
+        <div class="span12">
+            <div class="row" id="options">
+			  <h1 id='big'>What's in Chaska?</h1> 
+			  <h2 id='medium'>environmental permits</h2>
+			    <div id="map" style="width: 600px; height: 400px">
+				</div>
+			  <br/>	
+			  <h1 id='big'>?cityName=chaska</h2> 
+			  <br/>	
+			  <h2 id='big'>http://services.pca.state.mn.us/api/v1/wimn/sites?cityName=chaska&format=jsonp&callback=myCallbackName</h2> 
+            </div>
+			<br/>
+			<h1 id='big'> a list of sites </h1>
+			<br/>
+			<div id="list" style="padding-left: 200px">
+				<ul id="sites"></ul>
+			</div>
+			
+		</div>
+	</div>
+  
+	<!-- jQuery -->  
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!-- leaflet --> 
+	<script src="https://dl.dropboxusercontent.com/u/1139822/Leaflet/dist/leaflet-src.js"></script>
+	<!--<script src="leaflet-0.4.2/dist/leaflet.js"></script>-->
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.2"></script>
+	<script>
+
+		$(document).ready(function (){
+
+		  var route = "http://services.pca.state.mn.us/api/v1/wimn/sites?cityName=chaska&format=jsonp"
+
+		  $.ajax({
+
+			type: 'GET',
+			url: route,
+			async: false,
+			jsonpCallback: 'obj',
+			contentType: "application/json",
+			dataType: 'jsonp',
+			success: function (obj) {
+				
+			  (function ($) {
+		 
+				// create the map and add the stamen layers
+				// replace "toner" here with "terrain" or "watercolor"
+				var layer = new L.StamenTileLayer("terrain");
+				var map = new L.Map("map", {
+					center: new L.LatLng(44.819, -93.596),
+					zoom: 13
+				});
+				map.addLayer(layer);
+
+				// create teh WIMN markers		
+				for (i=0;i < obj.data.length;i++){
+					if (obj.data[i].lat > 0 && obj.data[i].activeSite == "Y") {
+											
+						var markerLocation = new L.LatLng(obj.data[i].lat, obj.data[i].long),
+							marker = new L.Marker(markerLocation);
+						
+						map.addLayer(marker);
+						
+						marker.bindPopup(
+							"<center><h3>" 
+							+ obj.data[i].siteName 
+							+ "</h3></center>This site is owned by " 
+							+ obj.data[i].ownerName + "<br/>Active = " 
+							+ obj.data[i].activeSite 
+							+ "<br/>Activity =  " 
+							+ obj.data[i].industrialClassification 
+							+ ".<br><a href='http://cf.pca.state.mn.us/wimn/siteInfo.cfm?siteid=" 
+							+ obj.data[i].siteId 
+							+ "' target='_blank'>View Data</a><br><a href='http://services.pca.state.mn.us/api/v1/wimn/site-activities?siteId=" 
+							+ obj.data[i].siteId 
+							+ "&format=csv' target='_blank'>Download Data</a>"
+						);
+					
+						$('#sites').append("<li><a href='http://cf.pca.state.mn.us/wimn/siteInfo.cfm?siteid=" + obj.data[i].siteId + "' target='_blank'>" + obj.data[i].siteName + "</a></li>"); 
+					};
+				};
+
+				//Display lat,lon on click
+				map.on('click', onMapClick);
+				
+				var popup = new L.Popup();
+
+				function onMapClick(e) {
+
+					var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+					popup.setLatLng(e.latlng);
+					popup.setContent("You clicked the map at " + latlngStr);
+					map.openPopup(popup);
+				}
+
+			  })(jQuery);
+
+			},
+			error: function (e) {
+			  console.log(e.message);
+			  alert("unable to connect to data");
+			}
+		  });
+
+		});
+
+	</script>
+  </body>
+</html>
