@@ -9,9 +9,8 @@
 
     <!-- move the bootstrap and leaflet code off dropbox -->
     <!-- styles -->
-    <link href="http://dl.dropbox.com/u/1139822/bootstrap.css" rel="stylesheet">
-	  <!-- <link rel="stylesheet" href="leaflet-0.4.2/dist/leaflet.css" /> -->
-	  <link rel="stylesheet" href="https://dl.dropboxusercontent.com/u/1139822/Leaflet/dist/leaflet.css" />
+    <link href="bootstrap.css" rel="stylesheet">
+	  <link rel="stylesheet" href="leaflet-0.4.2/dist/leaflet.css" />
 
     <style>
       body {
@@ -97,8 +96,7 @@
 	<!-- jQuery -->  
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<!-- leaflet --> 
-	<script src="https://dl.dropboxusercontent.com/u/1139822/Leaflet/dist/leaflet-src.js"></script>
-	<!--<script src="leaflet-0.4.2/dist/leaflet.js"></script>-->
+	<script src="leaflet-0.4.2/dist/leaflet-src.js"></script>
 	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.2"></script>
 	<script>
 
@@ -119,7 +117,7 @@
 			  (function ($) {
 		 
 				// create the map and add the stamen layers
-				// replace "toner" here with "terrain" or "watercolor"
+				// Stamen base map options "toner" "terrain" or "watercolor"
 				var layer = new L.StamenTileLayer("terrain");
 				var map = new L.Map("map", {
 					center: new L.LatLng(44.819, -93.596),
@@ -127,7 +125,7 @@
 				});
 				map.addLayer(layer);
 
-				// create teh WIMN markers		
+				// create the WIMN markers		
 				for (i=0;i < obj.data.length;i++){
 					if (obj.data[i].lat > 0 && obj.data[i].activeSite == "Y") {
 											
