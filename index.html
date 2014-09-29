@@ -134,7 +134,8 @@
 <section>
 	<h3>A map example</h3>
 	<code><pre>
-	// create markers		
+	// create markers
+	
 	for (i=0; i < obj.features.length; i++){
 				
 		if (obj.features[i].y > 0) {
@@ -182,7 +183,7 @@
 
 
 <section>
-	<h3>Using JSON data</h3>
+	<h3>Using JSON data in your page</h3>
 	
 	<p>include it via the <i>script</i> tag</p>
 	
@@ -194,11 +195,11 @@
 <section>
 	<h3>Request it from an API</h3>
 	
-	<p>API's URL + "?" + "parameter name" + "=value"</p>
+	<p>API's URL + "?" + "parameter name" + "=" + "value"</p>
 	<ul class="incremental"> 
 		<li>api.twitter.com/1.1/search/tweets.json<b>?</b>q=%23gislis2014
 		<li>services.pca.state.mn.us/api/v1/surfacewater/projects<b>?</b>prjId=PRJ07679-001
-		<li>/arcgis/rest/services/serviceName/MapServer/0/query<b>?</b>...f=pjson
+		<li>/arcgis/rest/services/serviceName/MapServer/0/query<b>?</b>...
 	</ul>
 	
 </section>
@@ -207,10 +208,9 @@
 	<h3>GET JSON using jQuery.ajax</h3>
 <code><pre>
 (function($) { 
-	var url = '.../site?ID=1234&format=json'; 			  
 	$.ajax({ 
 	   type: 'GET', 
-	    url: url, 
+	    url: '...superfund/site?ID=1234', 
 	  async: false, 
   jsonpCallback: 'data', 
     contentType: "application/json", 
