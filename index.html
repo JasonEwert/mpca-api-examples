@@ -89,7 +89,9 @@
 	
 	<code><pre>
 	for (var i=0; i < obj.values.length; i++) {
+	
 		appendList(obj.values[i])
+		
 	}
 	</pre></code>
 	
@@ -114,7 +116,7 @@
 			var marker = new L.LatLng(
 				obj.features[i].y, 
 				obj.features[i].x
-			)
+			)...
 		}
 	}
 	</pre></code>
@@ -128,6 +130,10 @@
 </section>
 
 <section>
+	<iframe src='http://jasonewert.github.io/EsriRestExample/'width="600px" height="400px"></iframe>
+</section>
+
+<section>
 	<h3>What is JSONP?</h3>
 	<code><pre>
 	functionName(
@@ -138,19 +144,22 @@
 			"of strings" ]
 		});
 	</code></pre>
+	
+	<div role="note">
+		JSONP is a JSON object wrapped in a function
+		the object can then be accessed by its function name
+		this is used when the JSON object is on a different domain than the script that is accessing it
+	</div>
 </section>
 
-<section>
-	<h3>using an item in the JS object</h3>
-	<code><pre>
-	var longitude = data.features[i].attributes.LONG
-	</code></pre>
-</section>
 
 <section>
-	<h3>Getting the JS object</h3>
+	<h3>Get JSON</h3>
+	
+	<p>include it via the <code><pre><script></script></pre></code> tag</p>
+	
 	<code><pre>
-	 script src="http://myWebSite/files/inverts.js" 
+	 script src="http://myWebSite/files/inverts.js"
 	</code></pre>
 </section>
 
@@ -158,16 +167,16 @@
 	<h3>GET the JS object</h3>
 <code><pre>
 (function($) { 
-	var url = '/site?ID=1234&format=json'; 			  
+	var url = '.../site?ID=1234&format=json'; 			  
 	$.ajax({ 
 	   type: 'GET', 
 		url: url, 
 		async: false, 
-	jsonpCallback: 'json', 
+	jsonpCallback: 'data', 
 	 contentType: "application/json", 
 	dataType: 'jsonp', 
-		success: function(json) { 
-			obj = json
+		success: function(data) { 
+			console.log(data.[0])
 			}, 
 		error: function(e) { 
 		   console.log(e.message); 
@@ -175,6 +184,7 @@
 	}); 	  
 })(jQuery);
 </code></pre>
+
 </section>
 
 <section>
