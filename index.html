@@ -56,27 +56,36 @@
 		"or an array"]
 	}
 	</code></pre>
-</section>
-
-<section>
-	<h3>Accesing properties</h3>
-	
-	<p>array vs. dot notation</p>
-	
-	<code><pre>
-	obj.["title"]
-	obj.title
-	</pre></code>
 	
 	<div role="note">
-		dots are cleaner, array notation can use a var via a loop or user input
+		JSON is an object, its properties include key/value pairs and lists (array)
 	</div>
 </section>
 
 <section>
 	<h3>Accesing properties</h3>
 	
-	<p>array AND dot notation</p>
+	<p>dot vs. array notation</p>
+	
+	<code><pre>
+	obj.title
+	
+	obj.["title"]
+		i = 0
+		obj.[i]
+	</pre></code>
+	
+	<div role="note">
+		dots are cleaner
+		array notation can use a var
+			i.e. in a loop or via user input
+	</div>
+</section>
+
+<section>
+	<h3>Accesing properties</h3>
+	
+	<p>dot AND array notation</p>
 	
 	<code><pre>
 	for (var i=0; i < obj.values.length; i++) {
@@ -85,8 +94,31 @@
 	</pre></code>
 	
 	<div role="note"> 
-		accessing an item in an array via a for loop
+		JS arrays are zero based
+		
+		for loop explained
+			set the iteration number using a var
+			set the conditions of the loop (while i is > the length of the array
+			add one to i after each itteration
 	</div>
+</section>
+
+<section>
+	<h3>a map example</h3>
+	<code><pre>
+	// create markers		
+	for (i=0;i < obj.features.length;i++){
+				
+		if (obj.features[i].geometry.y > 0) {
+											
+			var markerLocation = new L.LatLng(
+				obj.features[i].geometry.y, 
+				obj.features[i].geometry.x
+			)
+		}
+	}
+	</pre></code>
+	
 </section>
 
 <section>
