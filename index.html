@@ -164,20 +164,20 @@
 </section>
 
 <section>
-	<h3>GET the JS object</h3>
+	<h3>GET JSON using jQuery.ajax</h3>
 <code><pre>
 (function($) { 
 	var url = '.../site?ID=1234&format=json'; 			  
 	$.ajax({ 
 	   type: 'GET', 
-		url: url, 
-		async: false, 
-	jsonpCallback: 'data', 
-	 contentType: "application/json", 
-	dataType: 'jsonp', 
-		success: function(data) { 
+	    url: url, 
+	  async: false, 
+  jsonpCallback: 'data', 
+    contentType: "application/json", 
+       dataType: 'jsonp', 
+	success: function(data) { 
 			console.log(data.[0])
-			}, 
+		}, 
 		error: function(e) { 
 		   console.log(e.message); 
 		} 
