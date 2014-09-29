@@ -49,13 +49,32 @@
 	<code><pre>
 	{ "title" : "this is JSON",
 	  "string" : "and values",
-	  "values can be" : 
+	  "values" : 
 		[ "strings",
 		"numbers",
 		"true or false or null",
 		"or an array"]
 	}
 	</code></pre>
+</section>
+
+<section>
+	<h3>Accesing properties</h3>
+	<p>array vs. dot notation</p>
+	<p>obj.["title"]</p>
+	<p>obj.title</p>
+	
+	<details>
+		dots are cleaner, array notation can use a var via a loop or user input
+	</details>
+</section>
+
+<section>
+	<h3>Accesing properties</h3>
+	<p>array AND dot notation</p>
+	<code><pre>for (var i=0; i < obj.values.length; i++) {
+		appendList(obj.values[i])
+	}</pre></code>
 </section>
 
 <section>
