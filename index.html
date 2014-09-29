@@ -107,17 +107,23 @@
 	<h3>a map example</h3>
 	<code><pre>
 	// create markers		
-	for (i=0;i < obj.features.length;i++){
+	for (i=0; i < obj.features.length; i++){
 				
-		if (obj.features[i].geometry.y > 0) {
+		if (obj.features[i].y > 0) {
 											
-			var markerLocation = new L.LatLng(
-				obj.features[i].geometry.y, 
-				obj.features[i].geometry.x
+			var marker = new L.LatLng(
+				obj.features[i].y, 
+				obj.features[i].x
 			)
 		}
 	}
 	</pre></code>
+		
+	<div role="note">
+		while i is less than the arrays length
+		check for a valid y coordinate
+		create a new marker
+	</div>
 	
 </section>
 
