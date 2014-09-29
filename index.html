@@ -80,16 +80,16 @@
 </section>
 
 <section>
-	<h3>Accesing properties</h3>
-	
-	<p>dot vs. array notation</p>
+	<h3>Two ways to use a key's value in JS</h3>
 	
 	<code><pre>
-	obj.title
+	// dot vs. array notation
 	
-	obj.["title"]
-		i = 0
-		obj.[i]
+	objName.keyName
+	
+	objName.["key name"]
+		// this will return the value of the first key
+		objNmae.[0] 
 	</pre></code>
 	
 	<div role="note">
@@ -100,16 +100,21 @@
 </section>
 
 <section>
-	<h3>Accesing properties</h3>
-	
-	<p>dot AND array notation</p>
+	<h3>dot AND array notation</h3>
 	
 	<code><pre>
+	var objName = {"values" : 
+			[ "strings",
+			"numbers",
+			"true or false or null",
+			"or an array"]
+	   	      };
+	
 	for (var i=0; i < obj.values.length; i++) {
 	
-		appendList(obj.values[i])
+		appendList(objNmame.values[i])
 		
-	}
+	};
 	</pre></code>
 	
 	<div role="note"> 
