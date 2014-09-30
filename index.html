@@ -258,10 +258,24 @@
 
 <section>
 
-	<iframe src='http://jasonewert.github.io/EsriRestExample/' width="650px" height="500px" frameborder="0" scrolling="no"></iframe>
+	<iframe src='http://pca-gis02.pca.state.mn.us/arcgis/rest/services/agol/phosloads/MapServer/0/query?where=Facility_N+LIKE+%27%25WWTP%25%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=html' 
+		width="650px" height="500px" frameborder="0" scrolling="no"></iframe>
 	
 	<div role="note">
 		leaflet and ArcGIS for Server
+	</div>
+</section>
+
+<section>
+
+	<p>http://pca-gis02.pca.state.mn.us/arcgis/rest/services/agol/phosloads/MapServer/0/
+	<br />query?where=Facility_N+LIKE+%27%25WWTP%25%27
+	<br />&geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects
+	<br /<b>&outFields=*</b>&returnGeometry=true
+	<br /><b>&outSR=4326</b>&returnIdsOnly=false&returnCountOnly=false&returnZ=false&returnM=false&returnDistinctValues=false
+	<br /><b>&f=pjson</b></p>
+	<div role="note">
+		the request
 	</div>
 </section>
 
