@@ -289,10 +289,36 @@
 </section>
 
 <section>
+
+	<code><pre>
+	for (var i=0; i < data.features.length; i++) {
+		    x = data.features[i].attributes.LON;
+		    y = data.features[i].attributes.LAT;
+		color = new dojo.Color([255,128,0,0.8])
+		 size = ((data.features[i].attributes.MIBI * 4) / 10) - 8 
+
+		// create the point graphic and attributes
+		var pt = new Point(x, y);
+		var sms = new SimpleMarkerSymbol().setStyle(SimpleMarkerSymbol.STYLE_CIRCLE).setSize(size).setColor(color);
+		var attr = {
+			"SiteID":data.features[i].attributes.FieldNum, 
+			 "Name1":data.features[i].attributes.Name1,
+			 "Name2":data.features[i].attributes.Name2,
+			   "IBI":data.features[i].attributes.MIBI.toFixed(0),
+			 "Count":data.features[i].attributes.Count
+		}; 
+	}
+	</code></pre>
+	
+	<div role="note">
+		
+	</div>
+</section>
+
+<section>
 	<h3>Esri's JS API</h3>
 	
-	<iframe src='http://jasonewert.github.io/EsriRestExample/' width="650px" height="500px" frameborder="0" scrolling="no"></iframe>
-	
+	<p>vapor example?</p>
 	<div role="note">
 		vapor
 	</div>
