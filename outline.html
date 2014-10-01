@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+
+<section>
+    <!-- This is the first slide -->
+    <h1>Building simple maps with JSON</h1>
+    <footer>by Jason Ewert</footer>
+</section>
+
+<section>
+	<h3>Topics</h3>
+	
+	<ul class="incremental">
+	      <li>simple web maps
+	      <li>working with JSON
+	      <li>get JSON
+	      <li>mapping APIs
+	</ul>
+</section>
+
+<section>
+    <h2>Simple Web Maps</h2>
+</section>
+
+<section>
+	<h3>Components of a simple web map</h3>
+	
+	<ul class="incremental">
+	      <li>base map
+	      <li>point data
+	      <li>info window 
+	</ul>
+</section>
+
+<section>
+	<h3>Leaflet and JSON</h3>
+	
+	
+	<div role="note">
+		the mapping API is Leaflet, it controls the functionality
+			including getting the base map tiles
+			scroll, pan , zoom
+			event handling
+		<br />the base map tiles are from stamen designs
+		<br />the point and info window data are from a JSON object,
+			this was sent to the browser (after a request) from ArcGIS for Server
+	</div>
+</section>
+
+<section>
+    <p>Sometimes you just need a dial and a button.</p>
+
+</section>
+
+<section>
+    <h2>JSON</h2>
+</section>
+
+<section>
+	<h3>What is JavaScript Object Notation?</h3>
+	<code><pre>
+	{ "title" : "this is JSON",
+	  "key" : "value",
+	  "keys" : 
+	  	[ "strings" ]
+	  "values" : 
+		[ "strings",
+		"numbers",
+		"true or false or null",
+		"or an array"]
+	}
+	</code></pre>
+	
+	<div role="note">
+		JSON is an object, its properties include key/value pairs and lists (array)
+	</div>
+</section>
+
+<section>
+	<h3>Two ways to use a key's value in JS</h3>
+	
+	<code><pre>
+	// dot vs. array notation
+	
+	var value = objName.keyName
+	
+	var value = objName.["key name"]
+	
+	// this will return the value of the first key
+	
+	var value = objNmae.[0] 
+	</pre></code>
+	
+	<div role="note">
+		dots are cleaner
+		<br />array notation can use a var
+			<br />i.e. in a loop or via user input
+	</div>
+</section>
+
+<section>
+	<h3>dot AND array notation</h3>
+	
+	<code><pre>
+	var objName = {"values" : 
+			[ "strings",
+			"numbers",
+			"true or false or null",
+			"or an array"]
+	   	      };
+	
+	for (var i=0; i < obj.values.length; i++) {
+	
+		appendList(objNmame.values[i])
+		
+	};
+	</pre></code>
+	
+	<div role="note"> 
+		instead of nesting array notation [value[0]] 
+		use dots for everything but the var (and keys with invalid characters)
+		
+		<br /><br />JS arrays are zero based
+		
+		<br /><br />for loop explained
+			<br />set the iteration number using a var
+			<br />set the conditions of the loop (while i is > the length of the array
+			<br />add one to i after each iteration
+	</div>
+</section>
+
+<section>
+	<h3>A map example</h3>
+	<code><pre>
+	// create markers
+	
+	for (i=0; i < obj.features.length; i++){
+				
+		if (obj.features[i].y > 0) {
+											
+			var marker = new L.LatLng(
+				obj.features[i].y, 
+				obj.features[i].x
+			)...
+		}
+	}
+	</pre></code>
+		
+	<div role="note">
+		while i is less than the arrays length
+		<br />check for a valid y coordinate
+		<br />create a new marker
+	</div>
+	
+</section>
+
+<section>
+	<h3>A map example</h3>
+
+</section>
+
+<section>
+	<h3>What is JSONP?</h3>
+	<code><pre>
+	functionName(
+		{ "key one" : "value",
+		  "key two" : 
+			[ "a value can be",
+			"an array",
+			"of strings" ]
+		});
+	</code></pre>
+	
+	<div role="note">
+		JSONP is a JSON object wrapped in a function
+		<br />the object can then be accessed by its function name
+		<br />this is used when the JSON object is on a different domain than the script that is accessing it
+	</div>
+</section>
+
+<section>
+    <h2>GET JSON</h2>
+</section>
+
+<section>
+	<h3>From a text file</h3>
+	
+	<p>include it via the <i>script</i> tag</p>
+	
+	<code><pre>
+	 script src="http://myWebSite/files/myData.js"
+	</code></pre>
+</section>
+
+<section>
+	<h3>From a data API (service)</h3>
+	
+	<p>API's URL + "?" + "parameter name" + "=" + "value"</p>
+	<ul class="incremental"> 
+		<li>api.twitter.com/1.1/search/tweets.json<b>?</b>q=%23gislis2014
+		<li>services.pca.state.mn.us/api/v1/surfacewater/projects<b>?</b>prjId=PRJ07679-001
+		<li>/arcgis/rest/services/serviceName/MapServer/0/query<b>?</b>...
+	</ul>
+	
+</section>
+
+<section>
+	<h3>services.pca.state.mn.us</h3>
+	
+</section>
+
+<section>
+	<h3>GET JSON using jQuery.ajax</h3>
+<code><pre>
+(function($) { 
+	$.ajax({ 
+	   type: 'GET', 
+	    url: '...stations/lake?watershed=metro', 
+	  async: false, 
+  jsonpCallback: 'data', 
+    contentType: "application/json", 
+       dataType: 'jsonp', 
+	success: function(data) { 
+			console.log(data.[0])
+		}, 
+	  error: function(e) { 
+		   console.log(e.message); 
+		} 
+	}); 	  
+})(jQuery);
+</code></pre>
+
+</section>
+
+<section>
+    <h2>More Web Maps!</h2>
+</section>
+
+<section>
+	<h3>Esri's ReST API</h3>
+	
+	<div role="note">
+		leaflet and ArcGIS for Server
+	</div>
+</section>
+
+<section>
+	<figure>
+	</figure>
+	<div role="note">
+		Esri's ReST API GUI
+	</div>
+</section>
+
+<section>
+
+	<p><a href='http://pca-gis02.pca.state.mn.us/arcgis/rest/services/agol/phosloads/MapServer/0/query?where=Facility_N+LIKE+%27%25WWTP%25%27+&geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&outFields=*&returnGeometry=true&outSR=4326&returnIdsOnly=false&returnCountOnly=false&returnZ=false&returnM=false&returnDistinctValues=false&f=pjson' 
+		target='_blank'>the request</a>
+	<br />http://pca-gis02.pca.state.mn.us/arcgis/rest/services/agol/
+	<br />phosloads/MapServer/0/
+	<br />query?where=Facility_N+LIKE+%27%25WWTP%25%27
+	<br />&geometryType=esriGeometryEnvelope&spatialRel=...
+	<br /><b>&outFields=*</b>&returnGeometry=true
+	<br /><b>&outSR=4326</b>&returnIdsOnly=false...
+	<br /><b>&f=pjson</b></p>
+	<div role="note">
+		the request
+	</div>
+</section>
+
+<section>
+	<h3>Working with the point layer</h3>
+
+	
+	<div role="note">
+		inverts
+	</div>
+</section>
+
+<section>
+	<p>adding graphics to a graphics layer</p>
+	<code><pre>
+	for (var i=0; i < data.features.length; i++) {
+		
+		// create the point graphic and attributes
+		x = data.features[i].attributes.LON;
+		y = data.features[i].attributes.LAT;
+		size = ((data.features[i].attributes.MIBI * 4) / 10) - 8
+		xy = new Point (x, y)... 
+		var graphic = new Graphic(xy,symbol,attr,infoTemplate);
+		
+		// add the new point graphic to a graphics layer
+		pointLayer.add(graphic);
+	}
+	// add the graphics layer to the map...
+	</code></pre>
+	
+	<div role="note">
+		for each item in teh array create a graphic and info window
+		<br />add the graphic to a craphics layer
+		<br />add the graphics layer to the map
+	</div>
+</section>
+
+<section>
+	<h3>github.com/JasonEwert</h3>
+	<p>     this presentation -> <a href='http://bit.ly/1sMqVAH' target='_blank'>bit.ly/1sMqVAH</a>
+		<br /><a href='http://leafletjs.com/' target = '_blank'>Leaflet</a>
+		<br /><a href='https://developers.arcgis.com/javascript/' target = '_blank'>Esri's JS API</a>
+		<br /><a href='http://openlayers.org/' target = '_blank'>Open Layers</a>
+		<br /><a href='http://services.pca.state.mn.us' target = '_blank'>MPCA's API</a>
+		<br /><a href='http://pca-gis02.pca.state.mn.us/arcgis/rest/services' target = '_blank'>MPCA's ArcGIS ReST API</a>
+		<br /><a href='http://json.org/' target = '_blank'>JSON</a>
+		<br /><a href='http://javascript.crockford.com/' target = '_blank'>About JavaScript</a>
+	</p>
+</section>
+
+<!-- END -->
+</body>
+</html>
