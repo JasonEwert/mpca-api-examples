@@ -4,17 +4,17 @@ mpca-api-examples
 Presentation for the 2014 Minnesota GIS/LIS conference
 
 <h2>Building simple maps with JSON</h2>
-    <footer>by Jason Ewert</footer>
+by Jason Ewert
 
-	<h3>Topics</h3>
+Topics
+
+	simple web maps
 	
-	<ul class="incremental">
-	      <li>simple web maps
-	      <li>working with JSON
-	      <li>get JSON
-	      <li>mapping APIs
-	</ul>
-
-<hr></hr>
+	working with JSON
+	
+	get JSON
+	
+	mapping APIs
+	
 
 This presentation was built using DZ slides. The map examples can be found on github.com/JasonEwert.
